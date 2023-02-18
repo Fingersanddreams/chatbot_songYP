@@ -24,7 +24,7 @@ def main():
 
     dispatcher.add_handler(CommandHandler("add", add))
     dispatcher.add_handler(CommandHandler("help", help_command))
-    dispatcher.add_handler(CommandHandler("hello", responce))
+    dispatcher.add_handler(CommandHandler("hello", goodday))
 
     updater.start_polling()
     updater.idle()
@@ -48,13 +48,13 @@ def add(update: Update, context: CallbackContext) -> None:
     except(IndexError, ValueError):
         update.message.reply_text('Usage:/add<keyword>')
 
-def responce(update: Update, context: CallbackContext) -> None:
+def goodday(update: Update, context: CallbackContext) -> None:
     try:
         global redis1
         logging.info(context.args[0])
         msg = context.args[0]
         redis1.incr(msg)
-        update.message.reply_text('Good day! ' + msg)
+        update.message.reply_text('Good day, ' + msg)
     except(IndexError, ValueError):
         update.message.reply_text('Usage:/add<name>')
 
